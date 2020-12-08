@@ -1,0 +1,14 @@
+#
+# @lc app=leetcode.cn id=1480 lang=python3
+#
+# [1480] 一维数组的动态和
+#
+
+# @lc code=start
+class Solution:
+    def runningSum(self, nums: List[int]) -> List[int]:
+        for index in range(1, len(nums)):
+            nums[index] += nums[index-1]
+        return nums
+# @lc code=end
+
