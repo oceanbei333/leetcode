@@ -43,7 +43,21 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
         return res
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        res = []
+        def dfs(root:TreeNode, level:int):
+            if not root:
+                return
+            if len(res) > level:
+                res[level].append(root.val)
+            else:
+                res.append([root.val])
+            dfs(root.left, level+1)
+            dfs(root.right, level+1)
 
+        dfs(root, 0)
+        return res
+            
 
 
 # @lc code=end

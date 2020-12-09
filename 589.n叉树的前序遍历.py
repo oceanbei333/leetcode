@@ -16,23 +16,34 @@ class Node:
 class Solution:
     def preorder(self, root: 'Node') -> List[int]:
         res = []
-        def dfs(root):
+        def _preorder(root: 'Node'):
             if not root:
                 return
             res.append(root.val)
-            list(map(dfs, root.children))
-        dfs(root)
+            for node in root.children:
+                _preorder(node)
+        _preorder(root)
         return res
 
     def preorder(self, root: 'Node') -> List[int]:
+        res = []
         if not root:
-            return []
-        stack, res = [root], []
+            return res
+        stack = [root]
         while stack:
-            node = stack.pop()
-            res.append(node.val)
-            stack.extend(node.children[::-1])
+            root = stack.pop()
+            res.append(root.val)
+            stack.extend(root.children[::-1])
         return res
-
+    def preorder(self, root: 'Node') -> List[int]:
+        res = []
+        stack = []
+        while root:
+            res.append(root.val)
+            stack.extend(root.children[::-1])
+            root = stack.pop() if stack else None
+        return res
+            
+        
 # @lc code=end
 

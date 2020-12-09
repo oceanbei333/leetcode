@@ -39,6 +39,7 @@ class Solution:
         # 构造哈希映射，帮助我们快速定位根节点
         index = {element: i for i, element in enumerate(inorder)}
         return myBuildTree(0, n - 1, 0, n - 1)
+
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
         n = len(preorder)
         index = {node: i for i, node in enumerate(inorder)}
@@ -54,5 +55,44 @@ class Solution:
             return root
         return _buildTree(0, n-1, 0, n-1)
 
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        if not preorder:
+            return
+        root = TreeNode(preorder[0])
+        stack = [root]
+        inorder_index = 0
+        for i in range(1, len(preorder)):
+            preorder_val = preorder[i]
+            node = stack[-1]
+            if node.val != inorder[inorder_index]:
+                node.left = TreeNode(preorder_val)
+                stack.append(node.left)
+            else:
+                while stack and stack[-1].val == inorder[inorder_index]:
+                    node = stack.pop()
+                    inorder_index +=1
+                node.right = TreeNode(preorder_val)
+                stack.append(node.right)
+        return root
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        if not preorder:
+            return
+        inorder = inorder[::-1]
+        preorder = preorder[::-1]
+        root = TreeNode(preorder.pop())
+        stack = [root]
+        while preorder:
+            node = stack[-1]
+            preorder_val = preorder.pop()
+            if node.val != inorder[-1]:
+                node.left = TreeNode(preorder_val)
+                stack.append(node.left)
+            else:
+                while stack and stack[-1].val == inorder[-1]:
+                    node = stack.pop()
+                    inorder.pop()
+                node.right = TreeNode(preorder_val)
+                stack.append(node.right)
+        return root
 # @lc code=end
 

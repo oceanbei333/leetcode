@@ -8,18 +8,20 @@
 class Solution:
     def distributeCandies(self, candies: int, num_people: int) -> List[int]:
         res = [0]*num_people
-        i = 1
+        index = 0
         while candies:
-            index = i%num_people-1
-            if candies >= i:
-                res[index] += i
-                candies -= i
+            print(candies)
+            print(res)
+            if index >= num_people:
+                index = 0
+            if candies > index+1:
+                res[index] += index+1
+                candies -= index+1
             else:
-                res[index] += candies
+                res[index] = candies
                 candies = 0
-            i += 1
+            index+=1
         return res
-
         
 # @lc code=end
 

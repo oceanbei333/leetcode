@@ -5,19 +5,29 @@
 #
 
 # @lc code=start
+from typing import List
 class Solution:
+
     def maxProfit(self, prices: List[int]) -> int:
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        low_price = float('-inf')
-        max_profit = 0
-        for val in prices1:
-            if val > low_price:
-                max_profit = max(val-low_price, max_profit)
+        low =  float('inf')
+        max_ = 0
+        for p in prices:
+            if p >= low:
+                max_ = max(p-low, max_)
             else:
-                low_price = val
-        return max_profit
-            
+                low = p
+        return max_
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        low = prices[0]
+        max_ = 0
+        for p in prices[1:]:
+            if p >=low:
+                max_ = max(p-low, max_)
+            else:
+                low = p
+        return max_
 
 
 # @lc code=end

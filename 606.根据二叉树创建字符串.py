@@ -14,22 +14,18 @@
 
 class Solution:
     def tree2str(self, t: TreeNode) -> str:
-        if not t:
-            return ''
-        def dfs(root:TreeNode):
+        def dfs(root:TreeNode)->str:
             if not root:
-                return
-            res = str(root.val) 
-            if root.left:
-                res += '(' + dfs(root.left) +')'
-            if root.right:
-                res += '(' + dfs(root.right) +')'
-            return res
+                return ''
+            if not root.left and not root.right:
+                return str(root.val)
+            elif root.left and root.right:
+                return f"{root.val}({dfs(root.left)})({dfs(root.right)})"
+            elif root.left:
+                return f"{root.val}({dfs(root.left)})"
+            else:
+                return f"{root.val}()({dfs(root.right)})"
         return dfs(t)
-
-
-            
-            
         
 # @lc code=end
 

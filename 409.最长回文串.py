@@ -8,12 +8,16 @@
 class Solution:
     def longestPalindrome(self, s: str) -> int:
         from collections import Counter
-        total = 0
-        for val in Counter(s).values():
-            total += val//2*2
-            if not total%2 and val%2:
-                total +=1
-        return total 
-
+        counter = Counter(s)
+        has_even = False
+        res = 0
+        for count in counter.values():
+            if count % 2:
+                res += count-1
+                has_even = True
+            else:
+                res += count
+        return res + has_even
+        
 # @lc code=end
 

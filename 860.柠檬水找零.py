@@ -5,6 +5,7 @@
 #
 
 # @lc code=start
+from typing import List
 class Solution:
     def lemonadeChange(self, bills: List[int]) -> bool:
         ten_n = 0

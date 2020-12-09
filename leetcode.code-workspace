@@ -5,7 +5,8 @@
         },
         {
             "name": ".leetcode",
-            "path": "../../../home/ubuntu/.leetcode"
+            "path": "/Users/isea/.leetcode"
         }
-    ]
+    ],
+    "settings": {}
 }

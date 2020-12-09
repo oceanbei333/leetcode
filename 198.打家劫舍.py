@@ -5,6 +5,7 @@
 #
 
 # @lc code=start
+from typing import List
 class Solution:
     def rob(self, nums: List[int]) -> int:
         if not nums:
@@ -22,12 +23,21 @@ class Solution:
         length = len(nums)
         if length == 1:
             return nums[0]
-        nums[1] = max(*nums[:2])
-        for index in range(2, length):
-            nums[index] = max(nums[index]+nums[index-2], nums[index-1])
+        nums[1] = max(nums[:2])
+        for i in range(2, length):
+            nums[i] = max(nums[i]+nums[i-2], nums[i-1])
         return max(nums)
-        
+    def rob(self, nums: List[int]) -> int:
+        nums.append(0)
+        for i in range(1, len(nums)-1):
+            nums[i] = max(nums[i]+nums[i-2], nums[i-1])
+        return max(nums)
+    def rob(self, nums: List[int]) -> int:
+        cur, pre = 0, 0
+        for num in nums:
+            cur, pre = max(pre+num, cur), cur
+        return cur
+            
 
-        
 # @lc code=end
 

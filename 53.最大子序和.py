@@ -10,20 +10,15 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        # 用 index_max_num 代表以第 i 个数结尾的「连续子数组的最大和」
-        max_num = index_max_num = nums[0]
-        for val in nums[1:]:
-            index_max_num = max(index_max_num+val, val)
-            max_num = max(index_max_num, max_num)
-        return max_num
-
-
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        for index in range(1, len(nums)):
-            if nums[index-1] > 0:
-                nums[index] += nums[index-1]
+        for i in range(1, len(nums)):
+            if nums[i-1] > 0:
+                nums[i]+= nums[i-1]
         return max(nums)
 
-
+    def maxSubArray(self, nums: List[int]) -> int:
+        max_sum= sum_ = nums[0]
+        for val in nums[1:]:
+            sum_ = max(sum_+val, val)
+            max_sum = max(max_sum, sum_)
+        return max_sum
 # @lc code=end
