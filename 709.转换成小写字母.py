@@ -8,15 +8,8 @@
 class Solution:
     def toLowerCase(self, str: str) -> str:
         return str.lower()
+
     def toLowerCase(self, str: str) -> str:
-        res = ''
-        for s in str:
-            if  ord('A') <= ord(s) <= ord('Z'):
-                res += chr(ord(s)+32)
-            else:
-                res += s
-        return res
+        return ''.join(chr(ord(s)+32) if ord('A') <= ord(s) <= ord('Z') else s for s in str)
 
-        
 # @lc code=end
-

@@ -20,40 +20,22 @@ class Solution:
             return sum == root.val
         new_sum = sum - root.val
         return self.hasPathSum(root.left, new_sum) or self.hasPathSum(root.right, new_sum)
-    def hasPathSum(self, root: TreeNode, sum: int) -> bool:
-        if not root:
-            return False
-        from collections import deque
-        queue = deque([(root, root.val)])
-        while queue:
-            node, val = queue.popleft()
-            if not node.left and not node.right:
-                if val == sum:
-                    return True
-            if node.left:
-                queue.append((node.left, val+node.left.val))
-            if node.right:
-                queue.append((node.right, val+node.right.val))
-        return False
-                
 
     def hasPathSum(self, root: TreeNode, sum: int) -> bool:
         if not root:
             return False
-        from collections import deque
-        queue = deque([(root, 0)])
+        queue = [(root, root.val)]
         while queue:
-            node, val = queue.popleft()
-            s = val +node.val
-            if not node.left and not node.right:
-                if s == sum:
+            new_queue = []
+            for node, val in queue:
+                if not node.left and not node.right and val == sum:
                     return True
-            if node.left:
-                queue.append((node.left, s))
-            if node.right:
-                queue.append((node.right, s))
+                if node.left:
+                    new_queue.append((node.left, val+node.left.val))
+                if node.right:
+                    new_queue.append((node.right, val+node.right.val))
+            queue = new_queue
         return False
-                
+
 
 # @lc code=end
-

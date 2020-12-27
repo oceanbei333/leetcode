@@ -15,17 +15,16 @@ class Solution:
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         if not head:
             return head
-        pre =  head
-        aset = {head.val}
-        node = pre.next
-        while node:
-            if node.val in aset:
-                pre.next = node.next
+        node = head
+        aset = {node.val}
+        while node and node.next:
+            if node.next.val in aset:
+                node.next = node.next.next
             else:
-                aset.add(node.val)
-                pre = node
-            node = node.next
+                aset.add(node.next.val)
+                node = node.next
         return head
+
     def deleteDuplicates(self, head: ListNode) -> ListNode:
         node = head
         while node and node.next:
@@ -34,5 +33,12 @@ class Solution:
             else:
                 node = node.next
         return head
-# @lc code=end
 
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        head.next = self.deleteDuplicates(head.next)
+        return head.next if head.val == head.next.val else head
+
+
+# @lc code=end

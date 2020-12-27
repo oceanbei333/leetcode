@@ -5,6 +5,9 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
     def reverseString(self, s: List[str]) -> None:
         """
@@ -13,5 +16,14 @@ class Solution:
         for index in range(len(s)//2):
             s[index], s[-index-1] = s[-index-1], s[index]
 
-# @lc code=end
+    def reverseString(self, s: List[str]) -> None:
+        s[:] = s[::-1]
 
+    def reverseString(self, s: List[str]) -> None:
+        s.reverse()
+
+    def reverseString(self, s: List[str]) -> None:
+        for i in range(len(s)):
+            s.insert(i, s.pop())
+
+# @lc code=end

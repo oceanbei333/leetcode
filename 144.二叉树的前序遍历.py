@@ -14,27 +14,14 @@
 class Solution:
     def preorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
-        def _preorderTraversal(root:TreeNode):
+
+        def dfs(root: TreeNode):
             if not root:
                 return
             res.append(root.val)
-            _preorderTraversal(root.left)
-            _preorderTraversal(root.right)
-        _preorderTraversal(root)
-        return res
-
-    def preorderTraversal(self, root: TreeNode) -> List[int]:
-        if not root:
-            return []
-        stack = [root]
-        res = []
-        while stack:
-            root = stack.pop()
-            res.append(root.val)
-            if root.right:
-                stack.append(root.right)
-            if root.left:
-                stack.append(root.left)
+            dfs(root.left)
+            dfs(root.right)
+        dfs(root)
         return res
 
     def preorderTraversal(self, root: TreeNode) -> List[int]:
@@ -47,19 +34,4 @@ class Solution:
                 stack.append(node.right)
                 stack.append(node.left)
         return res
-    def preorderTraversal(self, root: TreeNode) -> List[int]:
-        res = []
-        stack = []
-        while root:
-            res.append(root.val)
-            if root.right:
-                stack.append(root.right)
-            if root.left:
-                stack.append(root.left)
-            root = stack.pop() if stack else None
-        return res
-
-
-        
 # @lc code=end
-

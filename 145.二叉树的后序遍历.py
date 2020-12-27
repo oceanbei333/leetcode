@@ -14,18 +14,20 @@
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         result = []
-        def func(root:TreeNode):
+
+        def dfs(root: TreeNode):
             if not root:
-                return 
-            func(root.left)
-            func(root.right)
+                return
+            dfs(root.left)
+            dfs(root.right)
             result.append(root.val)
-        func(root)
+        dfs(root)
         return result
+
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
         if not root:
-            return  res
+            return res
         stack = []
         pre = None
         while root or stack:
@@ -44,18 +46,30 @@ class Solution:
 
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
-        if not root :
-            return res
         stack = [root]
         while stack:
             root = stack.pop()
-            res.append(root.val)
-            if root.left:
+            if root:
+                res.append(root.val)
                 stack.append(root.left)
-            if root.right:
                 stack.append(root.right)
         return res[::-1]
 
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        stack, res, visited = [], [], {None}
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
+            root = stack.pop()
+
+            if root.right in visited:
+                res.append(root.val)
+                visited.add(root)
+                root = None
+            else:
+                stack.append(root)
+                root = root.right
+        return res
 
 # @lc code=end
-

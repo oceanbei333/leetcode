@@ -7,18 +7,18 @@
 # @lc code=start
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        s = list(s)
-        t = list(t)
-        s.sort()
-        t.sort()
-        return s == t
+        slist = list(s)
+        tlist = list(t)
+        slist.sort()
+        tlist.sort()
+        return slist == tlist
+
     def isAnagram(self, s: str, t: str) -> bool:
         from collections import Counter
         return Counter(s) == Counter(t)
+
     def isAnagram(self, s: str, t: str) -> bool:
         return sorted(s) == sorted(t)
 
 
-
 # @lc code=end
-

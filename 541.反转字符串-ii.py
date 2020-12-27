@@ -7,15 +7,21 @@
 # @lc code=start
 class Solution:
     def reverseStr(self, s: str, k: int) -> str:
-        index = 0
-        alist = []
+        index = 1
+        res = ''
+        s = '-'+s
         while index < len(s):
-            if not index:
-                alist.extend(s[index+k-1::-1])
-            else:
-                alist.extend(s[index+k-1:index-1:-1])
-            alist.extend(s[index+k: index+2*k])
+            res += s[index+k-1:index-1:-1]+s[index+k: index+2*k]
             index += 2*k
-        return ''.join(alist)
-# @lc code=end
+        return res
 
+    def reverseStr(self, s: str, k: int) -> str:
+        alist = list(s)
+        for i in range(0, len(alist), 2*k):
+            alist[i:i+k] = reversed(alist[i:i+k])
+        return ''.join(alist)
+
+    def reverseStr(self, s: str, k: int) -> str:
+        return ''.join(s[i:i+k][::-1]+s[i+k:i+2*k] for i in range(0, len(s), 2*k))
+
+# @lc code=end

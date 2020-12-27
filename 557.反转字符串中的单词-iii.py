@@ -8,8 +8,11 @@
 class Solution:
     def reverseWords(self, s: str) -> str:
         return " ".join(word[::-1] for word in s.split(" "))
+
     def reverseWords(self, s: str) -> str:
         return ' '.join(s.split(" ")[::-1])[::-1]
-        
-# @lc code=end
 
+    def reverseWords(self, s: str) -> str:
+        return ' '.join(reversed(s.split(" ")))[::-1]
+
+# @lc code=end

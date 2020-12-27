@@ -25,7 +25,6 @@ class Solution:
         while head:
             temp = head.next
             head.next = pre
-            pre = head
-            head = temp
+            pre, head = head, temp
         return pre
 # @lc code=end

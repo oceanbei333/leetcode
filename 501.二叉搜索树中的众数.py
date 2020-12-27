@@ -14,50 +14,46 @@
 
 class Solution:
     def findMode(self, root: TreeNode) -> List[int]:
+        if not root:
+            return []
         from collections import defaultdict
         adict = defaultdict(int)
-        def dfs(root:TreeNode):
+
+        def dfs(root: TreeNode):
             if not root:
                 return
             adict[root.val] += 1
             dfs(root.left)
             dfs(root.right)
         dfs(root)
-        if not adict:
-            return []
         max_c = max(adict.values())
         return [val for val, count in adict.items() if count == max_c]
-        
+
     def findMode(self, root: TreeNode) -> List[int]:
-        alist  = []
-        base = None
-        max_n = 0
-        count = 0
-        def update(val:int):
-            nonlocal max_n
-            nonlocal base
-            nonlocal count
-            nonlocal alist
-            if base == val:
-                count += 1
-            else:
-                base = val
-                count = 1
-            if count == max_n:
-                alist.append(val)
-            elif count > max_n:
-                alist = [base]
-                max_n = count
+        nums = []
+        if not root:
+            return nums
 
-
-        def dfs(root:TreeNode):
+        def dfs(root):
             if not root:
                 return
             dfs(root.left)
-            update(root.val)
+            nums.append(root.val)
             dfs(root.right)
         dfs(root)
-        return alist
+        pre, count, max_, res = None, 0, 0, []
+        for val in nums:
+            if val == pre:
+                count += 1
+            else:
+                pre = val
+                count = 1
+            if count == max_:
+                res.append(val)
+            elif count > max_:
+                res = [val]
+                max_ = count
+        return res
+
 
 # @lc code=end
-

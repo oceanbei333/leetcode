@@ -6,9 +6,11 @@
 
 # @lc code=start
 from typing import List
+
+
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        intervals.sort(key=lambda x:x[0])
+        intervals.sort(key=lambda x: x[0])
         intervals.append([float('inf'), float('inf')])
         res = []
         for i in range(len(intervals)-1):
@@ -21,7 +23,4 @@ class Solution:
         return res
 
 
-
-
 # @lc code=end
-

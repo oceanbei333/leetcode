@@ -13,29 +13,19 @@
 #         self.right = right
 class Solution:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
-        result = []
-        stack = []
-        while root or stack:
-            while root:
-                stack.append(root)
-                root = root.left
-            root = stack.pop()
-            result.append(root.val)
-            root = root.right
-        return result
-    def inorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
-        def _inorderTraversal(root:TreeNode):
+
+        def dfs(root: TreeNode):
             if not root:
                 return
-            _inorderTraversal(root.left)
+            dfs(root.left)
             res.append(root.val)
-            _inorderTraversal(root.right)
-        _inorderTraversal(root)
+            dfs(root.right)
+        dfs(root)
         return res
+
     def inorderTraversal(self, root: TreeNode) -> List[int]:
-        stack = []
-        res = []
+        stack, res = [], []
         while root or stack:
             while root:
                 stack.append(root)
@@ -45,6 +35,4 @@ class Solution:
             root = root.right
         return res
 
-        
 # @lc code=end
-

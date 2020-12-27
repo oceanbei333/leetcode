@@ -11,7 +11,7 @@ from typing import List, Tuple
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        @functools.lru_cache(None)
+        @lru_cache(len(nums))
         def dp(end: int) -> int:
             if not end:
                 return 1
@@ -20,28 +20,25 @@ class Solution:
 
     def lengthOfLIS(self, nums: List[int]) -> int:
         n = len(nums)
-        dp = [0]*(n+1)
-        nums.append(float('-inf'))
-        for i in range(n):
-            dp[i] = max(dp[j]+1 for j in range(-1, i) if nums[i] > nums[j])
+        dp = [1]*n
+        for i in range(1, n):
+            dp[i] = max(dp[j]+1 if nums[i] > nums[j] else 1 for j in range(i))
         return max(dp)
 
     def lengthOfLIS(self, nums: List[int]) -> int:
         import bisect
-        n = len(nums)
-        if n < 2:
-            return n
-        res = 1
-        # dp 每个长度的子序列中的末位置的最小值
+        # dp 每个长度的递增子序列中的的最小值
         # dp是单调递增的
         dp = nums[0:1]
-        for i in range(1, n):
-            if nums[i] > dp[res-1]:
+        for i in range(1, len(nums)):
+            index = bisect.bisect_left(dp, nums[i])
+            if index >= len(dp):
                 dp.append(nums[i])
-                res += 1
             else:
-                # 更新之前的子序列的末位置的最小值
-                dp[bisect.bisect_left(dp, nums[i])] = nums[i]
-        return res
+                # 更新之前的子序列的最小值
+                dp[index] = nums[i]
+        return len(dp)
+
+
 
 # @lc code=end

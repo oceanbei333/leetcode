@@ -9,9 +9,16 @@ class Solution:
     def firstUniqChar(self, s: str) -> int:
         from collections import Counter
         counter = Counter(s)
-        for index, c in enumerate(s):
-            if counter[c] == 1:
-                return index
+        for i in range(len(s)):
+            if counter[s[i]] == 1:
+                return i
+        return -1
+    def firstUniqChar(self, s: str) -> int:
+        aset = set()
+        for i in range(len(s)):
+            if s[i] not in aset:
+                if len(s) - len(s.replace(s[i], '')) == 1:
+                    return i
+                aset.add(s[i])
         return -1
 # @lc code=end
-
