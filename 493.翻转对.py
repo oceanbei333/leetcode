@@ -10,17 +10,15 @@ from typing import List
 
 class Solution:
     def reversePairs(self, nums: List[int]) -> int:
-        def merge(left: int, mid: int, right: int) -> int:
-            i, j, count = left, mid+1, 0
-            while i <= mid and j <= right:
-                if nums[i] > 2*nums[j]:
-                    count += mid+1-i
-                    j += 1
-                else:
-                    i += 1
-            nums[left: right+1] = sorted(nums[left:right+1])
-            return count
+        import bisect
+        big_nums, count = [], 0
+        for num in nums[::-1]:
+            # 反向遍历，那么big_nums中的数字的序号都比之后的大
+            count += bisect.bisect_left(big_nums, num)
+            big_nums.insert(bisect.bisect_left(big_nums, 2*num), 2*num)
+        return count
 
+    def reversePairs(self, nums: List[int]) -> int:
         def merge(left: int, mid: int, right: int) -> int:
             sorted_list = []
             i1, i2, count = left, left, 0
@@ -46,12 +44,24 @@ class Solution:
         return mergeSort(0, len(nums)-1)
 
     def reversePairs(self, nums: List[int]) -> int:
-        import bisect
-        j_nums, count = [], 0
-        for num in reversed(nums):
-            count += bisect.bisect_left(j_nums, num)
-            j_nums.insert(bisect.bisect_left(j_nums, 2*num), 2*num)
-        return count
+        def merge(left: int, mid: int, right: int) -> int:
+            i, j, count = left, mid+1, 0
+            while i <= mid and j <= right:
+                if nums[i] > 2*nums[j]:
+                    count += mid+1-i
+                    j += 1
+                else:
+                    i += 1
+            nums[left: right+1] = sorted(nums[left:right+1])
+            return count
+
+        def mergeSort(left: int, right) -> int:
+            if left >= right:
+                return 0
+            mid = (left+right) >> 1
+            return mergeSort(left, mid) + mergeSort(mid+1, right) + merge(left, mid, right)
+
+        return mergeSort(0, len(nums)-1)
 
 
 # @lc code=end

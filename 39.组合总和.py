@@ -10,22 +10,6 @@ from typing import List
 
 class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        @lru_cache(target)
-        def dp(target: int):
-            if target < 0:
-                return []
-            if not target:
-                return [[]]
-            res = []
-            for candidate in candidates:
-                for alist in dp(target-candidate):
-                    new_list = sorted(alist+[candidate])
-                    if new_list not in res:
-                        res.append(new_list)
-            return res
-        return dp(target)
-
-    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
         res = []
         n = len(candidates)
 
@@ -39,13 +23,49 @@ class Solution:
         return res
 
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
-        from collections import defaultdict
-        dp = defaultdict(list)
+        n = len(candidates)
+
+        def dp(i:int,target: int):
+            if not target:
+                return [[]]
+            if i < 1 or target < 0:
+                return []
+            res = dp(i-1, target)
+            for alist in dp(i, target-candidates[i-1]):
+                res.append(alist+[candidates[i-1]])
+            return res
+        return dp(n, target)
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        n = len(candidates)
+        dp = [[[] for _ in range(target+1)] for _ in range(n+1)]
+        for i in range(n+1):
+            dp[i][0].append([])
+        for i in range(1, n+1):
+            for num in range(1, target+1):
+                for item in dp[i-1][num]:
+                    dp[i][num].append(item[:])
+                if num >= candidates[i-1]:
+                    for item in dp[i][num-candidates[i-1]]:
+                        dp[i][num].append(item+[candidates[i-1]])
+        return dp[n][target]
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        n = len(candidates)
+        dp = [[] for _ in range(target+1)]
         dp[0].append([])
-        for cand in candidates:
-            for num in range(cand, target+1):
-                dp[num].extend([alist+[cand] for alist in dp[num-cand]])
+        for i in range(1, n+1):
+            for num in range(candidates[i-1], target+1):
+                for item in dp[num-candidates[i-1]]:
+                    dp[num].append(item+[candidates[i-1]])
         return dp[target]
+
+
+
+
+
+
+
 
 
 # @lc code=end

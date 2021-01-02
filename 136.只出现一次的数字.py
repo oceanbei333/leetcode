@@ -7,21 +7,23 @@
 # @lc code=start
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
+        return reduce(lambda x, y: x ^ y, nums)
+
+    def singleNumber(self, nums: List[int]) -> int:
+        aset = set()
+        for val in nums:
+            if val not in aset:
+                aset.add(val)
+            else:
+                aset.remove(val)
+        return aset.pop()
+
+    def singleNumber(self, nums: List[int]) -> int:
         nums.sort()
-        length = len(nums)
-        nums.append(float('inf'))
-        for index in range(0,length,2):
+        nums.append(None)
+        for index in range(0, len(nums), 2):
             if nums[index] != nums[index+1]:
                 return nums[index]
-    def singleNumber(self, nums: List[int]) -> int:
-        adict = dict()
-        for val in nums:
-            if val not in adict:
-                adict[val] = None
-            else:
-                adict.pop(val)
-        return adict.popitem()[0]
-    def singleNumber(self, nums: List[int]) -> int:
-        return functools.reduce(lambda x,y: x^y nums)
-# @lc code=end
 
+
+# @lc code=end
