@@ -12,13 +12,13 @@ class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
         n = len(start)
         bank_set = set(bank)
-        front = [start]
+        queue = [start]
         aset = {'A', 'C', 'G', 'T'}
         count = 0
-        while front:
+        while queue:
             count += 1
-            new_front = []
-            for gene in front:
+            new_queue = []
+            for gene in queue:
                 for i in range(n):
                     for s in aset-{gene[i]}:
                         new_gene = gene[:i]+s+gene[i+1:]
@@ -26,36 +26,34 @@ class Solution:
                             return count
                         if new_gene in bank_set:
                             bank_set.remove(new_gene)
-                            new_front.append(new_gene)
-            front = new_front
+                            new_queue.append(new_gene)
+            queue = new_queue
         return -1
 
-
-class Solution:
     def minMutation(self, start: str, end: str, bank: List[str]) -> int:
         n = len(start)
         bank_set = set(bank)
         if end not in bank_set:
             return -1
-        front = {start}
-        back = {end}
+        queue = {start}
+        back_queue = {end}
         aset = {'A', 'C', 'G', 'T'}
         count = 0
-        while front:
+        while queue:
             count += 1
-            new_front = []
-            for gene in front:
+            new_queue = []
+            for gene in queue:
                 for i in range(n):
                     for s in aset-{gene[i]}:
                         new_gene = gene[:i]+s+gene[i+1:]
-                        if new_gene in back:
+                        if new_gene in back_queue:
                             return count
                         if new_gene in bank_set:
                             bank_set.remove(new_gene)
-                            new_front.append(new_gene)
-            front = new_front
-            if len(front) > len(back):
-                front, back = back, front
+                            new_queue.append(new_gene)
+            queue = new_queue
+            if len(queue) > len(back_queue):
+                queue, back_queue = back_queue, queue
         return -1
 
 

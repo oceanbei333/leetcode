@@ -11,6 +11,9 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+from typing import List
+
+
 class Solution:
     def inorderTraversal(self, root: TreeNode) -> List[int]:
         res = []
@@ -25,8 +28,15 @@ class Solution:
         return res
 
     def inorderTraversal(self, root: TreeNode) -> List[int]:
-        stack, res = [], []
-        while root or stack:
+        if not root:
+            return []
+        return self.inorderTraversal(root.left) + [root.val]+self.inorderTraversal(root.right)
+
+    def inorderTraversal(self, root: TreeNode) -> List[int]:
+        res, stack = [], []
+        # 对每个右子树进行遍历
+        while stack or root:
+            # 遍历左子树
             while root:
                 stack.append(root)
                 root = root.left
@@ -34,5 +44,4 @@ class Solution:
             res.append(root.val)
             root = root.right
         return res
-
 # @lc code=end

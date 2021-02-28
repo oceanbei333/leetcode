@@ -16,14 +16,13 @@ class Solution:
         high = n
         while low <= high:
             mid = (low+high)//2
-            num = guess(mid)
-            if not num:
+            res = guess(mid)
+            if not res:
                 return mid
-            elif num == 1:
-                low = mid +1
+            if res == 1:
+                low = mid + 1
             else:
-                high = mid -1
+                high = mid - 1
         return low
-        
-# @lc code=end
 
+# @lc code=end

@@ -19,7 +19,7 @@ class Solution:
         stack = [root]
         res = []
         while stack:
-            res.append([node.val  for node in stack] )
+            res.append([node.val for node in stack])
             a_stack = []
             for node in stack:
                 if node.left:
@@ -28,11 +28,12 @@ class Solution:
                     a_stack.append(node.right)
             stack = a_stack
         return res
+
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
         from collections import deque
-        queue = deque([ root ])
+        queue = deque([root])
         res = []
         while queue:
             res.append([node.val for node in queue])
@@ -43,9 +44,11 @@ class Solution:
                 if node.right:
                     queue.append(node.right)
         return res
+
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
         res = []
-        def dfs(root:TreeNode, level:int):
+
+        def dfs(root: TreeNode, level: int):
             if not root:
                 return
             if len(res) > level:
@@ -57,8 +60,6 @@ class Solution:
 
         dfs(root, 0)
         return res
-            
 
 
 # @lc code=end
-

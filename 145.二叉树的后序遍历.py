@@ -45,17 +45,6 @@ class Solution:
         return res
 
     def postorderTraversal(self, root: TreeNode) -> List[int]:
-        res = []
-        stack = [root]
-        while stack:
-            root = stack.pop()
-            if root:
-                res.append(root.val)
-                stack.append(root.left)
-                stack.append(root.right)
-        return res[::-1]
-
-    def postorderTraversal(self, root: TreeNode) -> List[int]:
         stack, res, visited = [], [], {None}
         while root or stack:
             while root:
@@ -71,5 +60,16 @@ class Solution:
                 stack.append(root)
                 root = root.right
         return res
+
+    def postorderTraversal(self, root: TreeNode) -> List[int]:
+        res, stack = [], [root]
+        while stack:
+            root = stack.pop()
+            if root:
+                res.append(root.val)
+                stack.append(root.left)
+                stack.append(root.right)
+        return res[::-1]
+
 
 # @lc code=end

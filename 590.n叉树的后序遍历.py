@@ -13,9 +13,11 @@ class Node:
         self.children = children
 """
 
+
 class Solution:
     def postorder(self, root: 'Node') -> List[int]:
         res = []
+
         def _postorder(root: 'Node'):
             if not root:
                 return
@@ -24,25 +26,12 @@ class Solution:
             res.append(root.val)
         _postorder(root)
         return res
-        
+
     def postorder(self, root: 'Node') -> List[int]:
-        res = []
-        if not root:
-            return res
-        stack = [root]
+        res, stack = [], [root]
         while stack:
             root = stack.pop()
-            res.append(root.val)
-            stack.extend(root.children)
+            if root:
+                res.append(root.val)
+                stack.extend(root.children)
         return res[::-1]
-    def postorder(self, root: 'Node') -> List[int]:
-        res = []
-        stack = []
-        while root:
-            res.append(root.val)
-            stack.extend(root.children)
-            root = stack.pop() if stack else None
-        return res[::-1]
-
-# @lc code=end
-

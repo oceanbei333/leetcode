@@ -5,29 +5,30 @@
 #
 
 # @lc code=start
+from typing import List
+
+
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         max_area = 0
         length = len(height)
-        for m in range(length):
-            for n in range(m+1, length):
-                max_area = max(max_area, min(height[m], height[n])*(n-m))
+        for l in range(length):
+            for r in range(l+1, length):
+                max_area = max(max_area, min(height[l], height[r])*(r-l))
         return max_area
 
-
-class Solution:
     def maxArea(self, height: List[int]) -> int:
-        m = 0
-        n = len(height) - 1
+        l = 0
+        r = len(height) - 1
         max_area = 0
-        while m < n:
-            width = n - m
-            if height[m] > height[n]:
-                max_area = max(max_area, height[n]*width)
-                n -= 1
+        while l < r:
+            h = min(height[l], height[r])
+            w = r-l
+            max_area = max(max_area, h*w)
+            if height[l] > height[r]:
+                r -= 1
             else:
-                max_area = max(max_area, height[m]*width)
-                m += 1
+                l += 1
         return max_area
 
 

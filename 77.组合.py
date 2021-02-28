@@ -28,15 +28,33 @@ class Solution:
         return res
 
     def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+
+        def helper(used: List[int], first: int):
+            if len(used) == k:
+                res.append(used)
+                return
+            for num in range(first, n+1):
+                helper(used+[num], num+1)
+        helper([], 1)
+        return res
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        dp = [[] for _ in range(k+1)]
+        dp[0].append([])
+        for i in range(1, n+1):
+            for j in range(k, 0, -1):
+                for item in dp[j-1]:
+                    dp[j].append(item+[i])
+        return dp[k]
+
+    def combine(self, n: int, k: int) -> List[List[int]]:
         def dp(n: int, k: int):
             if not k:
                 return [[]]
             if n < 1 or k < 0:
                 return []
-            res = dp(n-1, k)
-            for item in dp(n-1, k-1):
-                res.append(item+[n])
-            return res
+            return [item+[n] for item in dp(n-1, k-1)] + dp(n-1, k)
         return dp(n, k)
 
     def combine(self, n: int, k: int) -> List[List[int]]:
@@ -51,24 +69,6 @@ class Solution:
                     dp[i][j].append(item+[i])
         return dp[n][k]
 
-    def combine(self, n: int, k: int) -> List[List[int]]:
-        dp = [[] for _ in range(k+1)]
-        dp[0].append([])
-        for i in range(1, n+1):
-            for j in range(k, 0, -1):
-                for item in dp[j-1]:
-                    dp[j].append(item+[i])
-        return dp[k]
-    def combine(self, n: int, k: int) -> List[List[int]]:
-        res = []
 
-        def helper(used: List[int], first: int):
-            if len(used)==k:
-                res.append(used)
-                return
-            for num in range(first, n+1):
-                helper(used+[num], num+1)
-        helper([], 1)
-        return res
 
 # @lc code=end

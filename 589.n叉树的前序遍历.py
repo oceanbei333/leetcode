@@ -26,24 +26,12 @@ class Solution:
         return res
 
     def preorder(self, root: 'Node') -> List[int]:
-        res = []
-        if not root:
-            return res
-        stack = [root]
+        res, stack = [], [root]
         while stack:
             root = stack.pop()
-            res.append(root.val)
-            stack.extend(root.children[::-1])
+            if root:
+                res.append(root.val)
+                stack.extend(root.children[::-1])
         return res
-    def preorder(self, root: 'Node') -> List[int]:
-        res = []
-        stack = []
-        while root:
-            res.append(root.val)
-            stack.extend(root.children[::-1])
-            root = stack.pop() if stack else None
-        return res
-            
-        
 # @lc code=end
 

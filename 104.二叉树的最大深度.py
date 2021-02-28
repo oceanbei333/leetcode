@@ -16,22 +16,22 @@ class Solution:
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-        depth = 0
-        from collections import deque
-        queue = deque([root])
-        while queue:
-            depth += 1
-            for _ in range(len(queue)):
-                root = queue.popleft()
-                if root.left:
-                    queue.append(root.left)
-                if root.right:
-                    queue.append(root.right)
-        return depth
+        return max(self.maxDepth(root.left), self.maxDepth(root.right))+1
+
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
-        return max(self.maxDepth(root.left), self.maxDepth(root.right))+1
+        depth, queue = 0, [root]
+        while queue:
+            depth += 1
+            new_queue = []
+            for node in queue:
+                if node.left:
+                    new_queue.append(node.left)
+                if node.right:
+                    new_queue.append(node.right)
+            queue = new_queue
+        return depth
+
 
 # @lc code=end
-

@@ -5,22 +5,24 @@
 #
 
 # @lc code=start
+from functools import lru_cache
 from typing import List
 
 
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        @functools.lru_cache(None)
-        def _minimumTotal(row: int, index: int):
+        @lru_cache(None)
+        def helper(row: int, index: int):
             if row >= len(triangle) or index >= len(triangle[row]):
                 return 0
-            return triangle[row][index] + min(_minimumTotal(row+1, index), _minimumTotal(row+1, index+1))
-        return _minimumTotal(0, 0)
+            return triangle[row][index] + min(helper(row+1, index), helper(row+1, index+1))
+        return helper(0, 0)
 
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        for i in range(len(triangle)-1, 0, -1):
-            for j in range(len(triangle[i])-1):
-                triangle[i-1][j] += min(triangle[i][j], triangle[i][j+1])
+        for row in range(len(triangle)-1, 0, -1):
+            for index in range(len(triangle[row])-1):
+                triangle[row-1][index] += min(triangle[row]
+                                              [index], triangle[row][index+1])
         return triangle[0][0]
 
 

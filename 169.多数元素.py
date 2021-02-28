@@ -35,6 +35,7 @@ class Solution:
     def majorityElement(self, nums: List[int]) -> int:
         nums.sort()
         return nums[len(nums)//2]
+
     def majorityElement(self, nums: List[int]) -> int:
         num = nums[0]
         count = 1
@@ -48,8 +49,9 @@ class Solution:
                 else:
                     count -= 1
         return num
+
     def majorityElement(self, nums: List[int]) -> int:
-        def _majorityElement(nums:List[int]):
+        def _majorityElement(nums: List[int]):
             if len(nums) == 1:
                 return nums[0]
             mid = len(nums)//2
@@ -62,8 +64,6 @@ class Solution:
             else:
                 return majority_right
         return _majorityElement(nums)
-
-
 
 
 # @lc code=end

@@ -25,13 +25,12 @@ class Solution:
         return res
 
     def preorderTraversal(self, root: TreeNode) -> List[int]:
-        stack = [root]
-        res = []
+        res, stack = [], [root]
         while stack:
-            node = stack.pop()
-            if node:
-                res.append(node.val)
-                stack.append(node.right)
-                stack.append(node.left)
+            root = stack.pop()
+            if root:
+                res.append(root.val)
+                stack.append(root.right)
+                stack.append(root.left)
         return res
 # @lc code=end
